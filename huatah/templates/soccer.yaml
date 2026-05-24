@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huatah-soccer-deployment
+  labels:
+    app: huatah-soccer
+spec:
+  replicas: {{ .Values.scrapers.replicas }}
+  selector:
+    matchLabels:
+      app: huatah-soccer
+  template:
+    metadata:
+      labels:
+        app: huatah-soccer
+    spec:
+      containers:
+        - name: huatah
+          image: {{ .Values.scrapers.image.repository }}:{{ .Values.scrapers.image.tag }}
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: Always
+          env:
+            - name: LEAGUE_NAMES
+              value: {{ .Values.scrapers.soccer.leagueNames | quote }}
+            - name: MY_URL
+              value: {{ .Values.scrapers.myUrl | quote }}
+            - name: LEAGUE_CODE
+              value: {{ .Values.scrapers.soccer.leagueCode | quote }}
+            - name: TYPE
+              value: {{ .Values.scrapers.soccer.type | quote }}
+            - name: interval
+              value: {{ .Values.scrapers.interval | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-soccer-ci
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: huatah-soccer

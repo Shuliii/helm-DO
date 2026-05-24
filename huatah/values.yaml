@@ -1,0 +1,64 @@
+scrapers:
+  image:
+    repository: ricoharsono/huatah-data
+    tag: scrape
+  replicas: 1
+  myUrl: "https://p12.6688867.com"
+  interval: "5"
+
+  mlb:
+    leagueNames: "MLB"
+    leagueCode: "BE"
+    type: "MLB"
+
+  nba:
+    leagueNames: "NBA PLAYOFFS"
+    leagueCode: "BB"
+    type: "NBA"
+
+  nfl:
+    leagueNames: "UFL"
+    leagueCode: "UF"
+    type: "NFL"
+
+  soccer:
+    leagueNames: "ENGLISH PREMIER LEAGUE,ITALY SERIE A,SPAIN PRIMERA LALIGA,GERMANY-BUNDESLIGA I,FRANCE LIGUE 1"
+    leagueCode: "S"
+    type: "Soccer"
+
+adminer:
+  image:
+    tag: "5.4.2"
+  defaultServer: "myservice.default.svc.cluster.local"
+
+mysql:
+  image:
+    tag: "8.0"
+  storage: 1Gi
+  nodePort: 30001
+
+data:
+  replicas: 1
+  image:
+    repository: ricoharsono/huatah-data
+    tag: latest
+
+frontend:
+  replicas: 2
+  image:
+    repository: ricoharsono/huatah
+    tag: latest
+
+backend:
+  replicas: 2
+  image:
+    repository: ricoharsono/huatah-backend
+    tag: latest
+  dbHost: "myservice.default.svc.cluster.local"
+
+auth:
+  replicas: 1
+  image:
+    repository: ricoharsono/huatah-auth
+    tag: latest
+  dbHost: "myservice.default.svc.cluster.local"

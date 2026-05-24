@@ -1,0 +1,247 @@
+#becareful editing this. combined with huatah.co
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: huatah-co-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    acme.cert-manager.io/http01-ingress-class: "nginx"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, PUT, POST, DELETE, PATCH, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Content-Type, Authorization"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - huatah.co
+        - www.huatah.co
+        - igokochihouse.com
+        - www.igokochihouse.com
+      secretName: huatah-co-tls
+  rules:
+    - host: igokochihouse.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: igokochi-backend
+                port:
+                  number: 4000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: igokochi-frontend
+                port:
+                  number: 80
+    - host: www.igokochihouse.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: igokochi-backend
+                port:
+                  number: 4000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: igokochi-frontend
+                port:
+                  number: 80
+    - host: huatah.co
+      http:
+        paths:
+          - path: /adminer
+            pathType: Prefix
+            backend:
+              service:
+                name: adminer-service
+                port:
+                  number: 80
+          - path: /login
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /register
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /changePassword
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /metrics
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /user
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /balance
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /summary
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /active
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /postbet
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /bet
+            pathType: Prefix
+            backend:
+              service:
+                name: huatah-service-np
+                port:
+                  number: 3000
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: huatah-service-np
+                port:
+                  number: 3000
+
+    - host: www.huatah.co
+      http:
+        paths:
+          - path: /adminer
+            pathType: Prefix
+            backend:
+              service:
+                name: adminer-service
+                port:
+                  number: 80
+          - path: /login
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /register
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /changePassword
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /metrics
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /user
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /balance
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /summary
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /active
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /postbet
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /bet
+            pathType: Prefix
+            backend:
+              service:
+                name: huatah-service-np
+                port:
+                  number: 3000
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-np
+                port:
+                  number: 3030
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: huatah-service-np
+                port:
+                  number: 3000

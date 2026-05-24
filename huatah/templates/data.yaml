@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huatah-data-deployment
+  labels:
+    app: huatah-data
+spec:
+  replicas: {{ .Values.data.replicas }}
+  selector:
+    matchLabels:
+      app: huatah-data
+  template:
+    metadata:
+      labels:
+        app: huatah-data
+    spec:
+      containers:
+        - name: huatah
+          image: {{ .Values.data.image.repository }}:{{ .Values.data.image.tag }}
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-data-ci
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+  selector:
+    app: huatah-data

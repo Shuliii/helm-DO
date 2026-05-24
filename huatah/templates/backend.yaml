@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huatah-backend-deployment
+  labels:
+    app: huatah-backend
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      app: huatah-backend
+  template:
+    metadata:
+      labels:
+        app: huatah-backend
+    spec:
+      containers:
+        - name: huatah
+          image: {{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}
+          ports:
+            - containerPort: 3030
+          imagePullPolicy: Always
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: huatah-secret
+                  key: JWT_SECRET
+            - name: DB_HOST
+              value: {{ .Values.backend.dbHost | quote }}
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: huatah-secret
+                  key: MYSQL_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: huatah-secret
+                  key: MYSQL_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: huatah-secret
+                  key: MYSQL_DATABASE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service-np
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3030
+      targetPort: 3030
+      protocol: TCP
+  selector:
+    app: huatah-backend

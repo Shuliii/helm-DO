@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huatah-nba-deployment
+  labels:
+    app: huatah-nba
+spec:
+  replicas: {{ .Values.scrapers.replicas }}
+  selector:
+    matchLabels:
+      app: huatah-nba
+  template:
+    metadata:
+      labels:
+        app: huatah-nba
+    spec:
+      containers:
+        - name: huatah
+          image: {{ .Values.scrapers.image.repository }}:{{ .Values.scrapers.image.tag }}
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: Always
+          env:
+            - name: LEAGUE_NAMES
+              value: {{ .Values.scrapers.nba.leagueNames | quote }}
+            - name: MY_URL
+              value: {{ .Values.scrapers.myUrl | quote }}
+            - name: LEAGUE_CODE
+              value: {{ .Values.scrapers.nba.leagueCode | quote }}
+            - name: TYPE
+              value: {{ .Values.scrapers.nba.type | quote }}
+            - name: interval
+              value: {{ .Values.scrapers.interval | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-nba-ci
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: huatah-nba

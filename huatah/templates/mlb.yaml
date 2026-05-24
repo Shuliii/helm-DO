@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huatah-mlb-deployment
+  labels:
+    app: huatah-mlb
+spec:
+  replicas: {{ .Values.scrapers.replicas }}
+  selector:
+    matchLabels:
+      app: huatah-mlb
+  template:
+    metadata:
+      labels:
+        app: huatah-mlb
+    spec:
+      containers:
+        - name: huatah
+          image: {{ .Values.scrapers.image.repository }}:{{ .Values.scrapers.image.tag }}
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: Always
+          env:
+            - name: LEAGUE_NAMES
+              value: {{ .Values.scrapers.mlb.leagueNames | quote }}
+            - name: MY_URL
+              value: {{ .Values.scrapers.myUrl | quote }}
+            - name: LEAGUE_CODE
+              value: {{ .Values.scrapers.mlb.leagueCode | quote }}
+            - name: TYPE
+              value: {{ .Values.scrapers.mlb.type | quote }}
+            - name: interval
+              value: {{ .Values.scrapers.interval | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-mlb-ci
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: huatah-mlb
