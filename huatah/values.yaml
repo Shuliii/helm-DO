@@ -22,7 +22,7 @@ scrapers:
     type: "NFL"
 
   soccer:
-    leagueNames: "ENGLISH PREMIER LEAGUE,ITALY SERIE A,SPAIN PRIMERA LALIGA,GERMANY-BUNDESLIGA I,FRANCE LIGUE 1"
+    leagueNames: "FINLAND CUP,ICELAND PREMIER LEAGUE,COPA LIBERTADORES"
     leagueCode: "S"
     type: "Soccer"
 
