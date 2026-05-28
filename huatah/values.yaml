@@ -22,7 +22,7 @@ scrapers:
     type: "NFL"
 
   soccer:
-    leagueNames: "FINLAND CUP,ICELAND PREMIER LEAGUE,COPA LIBERTADORES"
+    leagueNames: "INTERNATIONAL FRIENDLY,COPA LIBERTADORES"
     leagueCode: "S"
     type: "Soccer"
 
