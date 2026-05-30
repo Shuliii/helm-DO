@@ -22,7 +22,7 @@ scrapers:
     type: "NFL"
 
   soccer:
-    leagueNames: "INTERNATIONAL FRIENDLY,COPA LIBERTADORES"
+    leagueNames: "UEFA CHAMPIONS LEAGUE,INTERNATIONAL FRIENDLY,CHINA FOOTBALL SUPER LEAGUE"
     leagueCode: "S"
     type: "Soccer"
 
