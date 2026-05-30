@@ -12,7 +12,7 @@ scrapers:
     type: "MLB"
 
   nba:
-    leagueNames: "NBA PLAYOFFS"
+    leagueNames: "NBA PLAYOFFS,NEW ZEALAND NBL,WNBA,GREECE BASKETBALL LEAGUE"
     leagueCode: "BB"
     type: "NBA"
 
