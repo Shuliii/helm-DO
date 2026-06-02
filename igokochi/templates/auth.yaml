@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: igokochi-auth-deployment
+  labels:
+    app: igokochi-auth
+spec:
+  replicas: {{ .Values.auth.replicas }}
+  selector:
+    matchLabels:
+      app: igokochi-auth
+  template:
+    metadata:
+      labels:
+        app: igokochi-auth
+    spec:
+      containers:
+        - name: igokochi-auth
+          image: {{ .Values.auth.image.repository }}:{{ .Values.auth.image.tag }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          env:
+            - name: PORT
+              value: "8081"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: JWT_SECRET
+            - name: DB_HOST
+              value: {{ .Values.auth.dbHost | quote }}
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: DB_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: DB_NAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: igokochi-auth-service
+spec:
+  type: ClusterIP
+  selector:
+    app: igokochi-auth
+  ports:
+    - name: http
+      port: 8081
+      targetPort: 8081
+      protocol: TCP

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paynow
+spec:
+  replicas: {{ .Values.paynow.replicas }}
+  selector:
+    matchLabels:
+      app: paynow
+  template:
+    metadata:
+      labels:
+        app: paynow
+    spec:
+      containers:
+        - name: paynow
+          image: {{ .Values.paynow.image.repository }}:{{ .Values.paynow.image.tag }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PAYNOW_PHONE
+              value: {{ .Values.paynow.phone | quote }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paynow-service
+spec:
+  type: ClusterIP
+  selector:
+    app: paynow
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

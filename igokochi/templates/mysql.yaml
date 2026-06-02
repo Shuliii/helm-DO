@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-igokochi
+spec:
+  serviceName: mysql-igokochi-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-igokochi
+  template:
+    metadata:
+      labels:
+        app: mysql-igokochi
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:{{ .Values.mysql.image.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: mysql
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: DB_NAME
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: DB_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: DB_PASSWORD
+          args:
+            - "--default-authentication-plugin=mysql_native_password"
+          volumeMounts:
+            - name: mysql-igokochi-data
+              mountPath: /var/lib/mysql
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - "mysqladmin ping -h 127.0.0.1 -p$MYSQL_ROOT_PASSWORD"
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 10
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - "mysqladmin ping -h 127.0.0.1 -p$MYSQL_ROOT_PASSWORD"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 10
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-igokochi-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: do-block-storage
+        resources:
+          requests:
+            storage: {{ .Values.mysql.storage }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-igokochi-service
+  labels:
+    app: mysql-igokochi-service
+spec:
+  clusterIP: None
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: mysql-igokochi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: mysql-igokochi
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+      nodePort: {{ .Values.mysql.nodePort }}
