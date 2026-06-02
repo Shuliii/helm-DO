@@ -22,7 +22,7 @@ scrapers:
     type: "NFL"
 
   soccer:
-    leagueNames: "UEFA CHAMPIONS LEAGUE,INTERNATIONAL FRIENDLY,CHINA FOOTBALL SUPER LEAGUE"
+    leagueNames: "FINLAND YKKONEN,INTERNATIONAL FRIENDLY,CHINA FOOTBALL SUPER LEAGUE"
     leagueCode: "S"
     type: "Soccer"
 

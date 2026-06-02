@@ -1,0 +1,27 @@
+name: Helm Deploy - Igokochi
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "igokochi/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Helm chart repo
+        uses: actions/checkout@v4
+
+      - name: Setup kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Deploy
+        run: helm upgrade --install igokochi ./igokochi

@@ -1,11 +1,11 @@
-name: Helm Deploy
+name: Helm Deploy - Huatah
 
 on:
   push:
     branches:
       - main
     paths:
-      - "igokochi/values.yaml"
+      - "huatah/**"
 
 jobs:
   deploy:
@@ -24,4 +24,4 @@ jobs:
         uses: azure/setup-helm@v4
 
       - name: Deploy
-        run: helm upgrade --install igokochi ./igokochi
+        run: helm upgrade --install huatah ./huatah
