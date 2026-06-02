@@ -4,14 +4,12 @@ auth:
     repository: ricoharsono/huatah-auth
     tag: latest
   dbHost: "mysql-igokochi-service.default.svc.cluster.local"
-
 paynow:
   replicas: 1
   image:
     repository: ricoharsono/paynow
     tag: latest
   phone: "87956046"
-
 backend:
   replicas: 2
   image:
@@ -20,14 +18,12 @@ backend:
   authBaseUrl: "http://igokochi-auth-service:8081"
   dbHost: "mysql-igokochi-service"
   dbPort: "3306"
-
 frontend:
   replicas: 2
   image:
     repository: ricoharsono/igokochi-frontend
-    tag: latest
+    tag: fecac93c
   apiBaseUrl: "https://igokochihouse.com/api"
-
 mysql:
   image:
     tag: "8.0"
