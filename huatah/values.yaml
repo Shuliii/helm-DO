@@ -12,7 +12,7 @@ scrapers:
     type: "MLB"
 
   nba:
-    leagueNames: "NBA PLAYOFFS,NEW ZEALAND NBL,WNBA,GREECE BASKETBALL LEAGUE"
+    leagueNames: "WNBA,NBA FINALS"
     leagueCode: "BB"
     type: "NBA"
 
@@ -22,7 +22,7 @@ scrapers:
     type: "NFL"
 
   soccer:
-    leagueNames: "FINLAND YKKONEN,INTERNATIONAL FRIENDLY,CHINA FOOTBALL SUPER LEAGUE"
+    leagueNames: "JAPAN J1 100 YEAR VISION LEAGUE (PLAYOFF),INTERNATIONAL FRIENDLY"
     leagueCode: "S"
     type: "Soccer"
 
