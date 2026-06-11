@@ -29,3 +29,6 @@ mysql:
     tag: "8.0"
   storage: 10Gi
   nodePort: 30306
+scrapers:
+  image:
+    tag: d2c5f581
