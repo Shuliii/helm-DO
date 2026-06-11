@@ -10,7 +10,7 @@ scrapers:
     leagueCode: "BE"
     type: "MLB"
   nba:
-    leagueNames: "NBA FINAL GAME 4,WNBA"
+    leagueNames: "WNBA"
     leagueCode: "BB"
     type: "NBA"
   nfl:
