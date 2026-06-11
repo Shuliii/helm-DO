@@ -22,7 +22,7 @@ scrapers:
     type: "NFL"
 
   soccer:
-    leagueNames: "INTERNATIONAL FRIENDLY,INTERNATIONAL FRIENDLY U21"
+    leagueNames: "2026 WORLD CUP (IN CANADA, MEXICO & USA)"
     leagueCode: "S"
     type: "Soccer"
 
