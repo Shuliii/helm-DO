@@ -22,7 +22,7 @@ scrapers:
     type: "NFL"
 
   soccer:
-    leagueNames: "2026 WORLD CUP (IN CANADA, MEXICO & USA)"
+    leagueNames: "2026 WORLD CUP (IN CANADA, MEXICO & USA),ASEAN U19 CHAMPIONSHIP (IN INDONESIA)"
     leagueCode: "S"
     type: "Soccer"
 
