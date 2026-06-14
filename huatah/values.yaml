@@ -1,7 +1,7 @@
 scrapers:
   image:
     repository: ricoharsono/huatah-data
-    tag: 4e0161f5
+    tag: 0ea737da
   replicas: 1
   myUrl: "https://p12.6688867.com"
   interval: "5"
