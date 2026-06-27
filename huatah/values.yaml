@@ -36,12 +36,12 @@ data:
     repository: ricoharsono/huatah-data
     tag: latest
 frontend:
-  replicas: 2
+  replicas: 1
   image:
     repository: ricoharsono/huatah
     tag: latest
 backend:
-  replicas: 2
+  replicas: 1
   image:
     repository: ricoharsono/huatah-backend
     tag: b55f5b61
