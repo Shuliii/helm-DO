@@ -6,7 +6,7 @@ scrapers:
   myUrl: "https://p12.6688867.com"
   interval: "5"
   mlb:
-    leagueNames: "MLB"
+    leagueNames: "MLB|KBO LEAGUE"
     leagueCode: "BE"
     type: "MLB"
   nba:
