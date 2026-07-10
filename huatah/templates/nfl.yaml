@@ -1,3 +1,5 @@
+{{/* Disabled while NFL scraper is being refactored to serverless; flip to `true` to re-enable. */}}
+{{- if false }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -44,3 +46,4 @@ spec:
       protocol: TCP
   selector:
     app: huatah-nfl
+{{- end }}
