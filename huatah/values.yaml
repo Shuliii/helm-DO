@@ -17,7 +17,6 @@ scrapers:
     leagueNames: "CFL"
     leagueCode: "UF"
     type: "NFL"
-    imageTag: "nfl-test"
   soccer:
     leagueNames: "2026 WORLD CUP (IN CANADA, MEXICO & USA)"
     leagueCode: "S"
