@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-huatah
+  labels:
+    app: redis-huatah
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-huatah
+  template:
+    metadata:
+      labels:
+        app: redis-huatah
+    spec:
+      containers:
+        - name: redis
+          image: redis:{{ .Values.redis.image.tag }}
+          args: ["--requirepass", "$(REDIS_PASSWORD)"]
+          ports:
+            - containerPort: 6379
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: huatah-secret
+                  key: REDIS_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: redis-huatah

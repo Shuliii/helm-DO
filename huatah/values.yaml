@@ -52,3 +52,6 @@ auth:
     repository: ricoharsono/huatah-auth
     tag: latest
   dbHost: "myservice.default.svc.cluster.local"
+redis:
+  image:
+    tag: "8-alpine"
