@@ -10,7 +10,7 @@ scrapers:
     leagueCode: "BE"
     type: "MLB"
   nba:
-    leagueNames: "WNBA"
+    leagueNames: "NBA SUMMER LEAGUE (IN LAS VEGAS)|WNBA"
     leagueCode: "BB"
     type: "NBA"
   nfl:
