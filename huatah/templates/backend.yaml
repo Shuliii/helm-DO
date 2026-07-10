@@ -43,6 +43,15 @@ spec:
                 secretKeyRef:
                   name: huatah-secret
                   key: MYSQL_DATABASE
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: huatah-secret
+                  key: REDIS_PASSWORD
 ---
 apiVersion: v1
 kind: Service
