@@ -1,46 +1,40 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: huatah-nba-deployment
-  labels:
-    app: huatah-nba
+  name: huatah-nba-cronjob
 spec:
-  replicas: {{ .Values.scrapers.replicas }}
-  selector:
-    matchLabels:
-      app: huatah-nba
-  template:
-    metadata:
-      labels:
-        app: huatah-nba
+  schedule: "2,7,12,17,22,27,32,37,42,47,52,57 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
     spec:
-      containers:
-        - name: huatah
-          image: {{ .Values.scrapers.image.repository }}:{{ .Values.scrapers.image.tag }}
-          ports:
-            - containerPort: 8000
-          imagePullPolicy: Always
-          env:
-            - name: LEAGUE_NAMES
-              value: {{ .Values.scrapers.nba.leagueNames | quote }}
-            - name: MY_URL
-              value: {{ .Values.scrapers.myUrl | quote }}
-            - name: LEAGUE_CODE
-              value: {{ .Values.scrapers.nba.leagueCode | quote }}
-            - name: TYPE
-              value: {{ .Values.scrapers.nba.type | quote }}
-            - name: interval
-              value: {{ .Values.scrapers.interval | quote }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-nba-ci
-spec:
-  type: ClusterIP
-  ports:
-    - port: 8000
-      targetPort: 3000
-      protocol: TCP
-  selector:
-    app: huatah-nba
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: huatah-nba
+              image: {{ .Values.scrapers.image.repository }}:{{ .Values.scrapers.image.tag }}
+              imagePullPolicy: Always
+              env:
+                - name: RUN_MODE
+                  value: "once"
+                - name: LEAGUE_NAMES
+                  value: {{ .Values.scrapers.nba.leagueNames | quote }}
+                - name: MY_URL
+                  value: {{ .Values.scrapers.myUrl | quote }}
+                - name: LEAGUE_CODE
+                  value: {{ .Values.scrapers.nba.leagueCode | quote }}
+                - name: TYPE
+                  value: {{ .Values.scrapers.nba.type | quote }}
+                - name: REDIS_HOST
+                  value: "redis"
+                - name: REDIS_PORT
+                  value: "6379"
+                - name: REDIS_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: huatah-secret
+                      key: REDIS_PASSWORD
+                - name: REDIS_KEY
+                  value: "scraper:nba"
+                - name: REDIS_TTL
+                  value: "900"

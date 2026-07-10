@@ -1,5 +1,4 @@
-﻿{{- if .Values.scrapers.nfl }}
-apiVersion: batch/v1
+﻿apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: huatah-nfl-cronjob
@@ -39,4 +38,3 @@ spec:
                   value: "scraper:nfl"
                 - name: REDIS_TTL
                   value: "900"
-{{- end }}
