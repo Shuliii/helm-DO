@@ -9,7 +9,7 @@ paynow:
   image:
     repository: ricoharsono/paynow
     tag: latest
-  phone: "98635931"
+  phone: "87956046"
 backend:
   replicas: 2
   image:
