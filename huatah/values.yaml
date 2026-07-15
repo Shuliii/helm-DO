@@ -6,7 +6,7 @@ scrapers:
   myUrl: "https://p12.6688867.com"
   interval: "5"
   mlb:
-    leagueNames: "MLB|KBO LEAGUE"
+    leagueNames: "MLB|KBO LEAGUE|NIPPON PROFESSIONAL BASEBALL"
     leagueCode: "BE"
     type: "MLB"
   nba:
@@ -18,7 +18,7 @@ scrapers:
     leagueCode: "UF"
     type: "NFL"
   soccer:
-    leagueNames: "2026 WORLD CUP (IN CANADA, MEXICO & USA)"
+    leagueNames: "2026 WORLD CUP (IN CANADA, MEXICO & USA)|KOREA CUP"
     leagueCode: "S"
     type: "Soccer"
 adminer:
