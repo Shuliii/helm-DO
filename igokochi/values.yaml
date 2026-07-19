@@ -22,7 +22,7 @@ frontend:
   replicas: 2
   image:
     repository: ricoharsono/igokochi-frontend
-    tag: "9eb51fd2"
+    tag: "51a34673"
   apiBaseUrl: "https://igokochihouse.com/api"
 mysql:
   image:
