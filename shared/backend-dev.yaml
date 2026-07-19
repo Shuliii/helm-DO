@@ -1,0 +1,95 @@
+# Standalone dev backend for menu_items_table / category testing.
+# Not part of the igokochi Helm chart (kept separate so it's easy to delete
+# later) — plain manifest, apply/delete directly with kubectl.
+#
+# Reuses production's `igokochi-secret` (same DB creds + JWT_SECRET) and
+# points at the same MySQL service, since menu_items_table lives in the same
+# database as menu_items. This pod's server.js queries menu_items_table
+# instead — production's igokochi-backend Deployment is untouched.
+#
+# Apply: kubectl apply -f shared/backend-dev.yaml
+# Delete when done testing: kubectl delete -f shared/backend-dev.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: igokochi-backend-dev
+  labels:
+    app: igokochi-backend-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: igokochi-backend-dev
+  template:
+    metadata:
+      labels:
+        app: igokochi-backend-dev
+    spec:
+      containers:
+        - name: igokochi-backend-dev
+          image: ricoharsono/igokochi-backend:dev
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 4000
+          env:
+            - name: PORT
+              value: "4000"
+            - name: AUTH_BASE_URL
+              value: "http://igokochi-auth-service:8081"
+            - name: DB_HOST
+              value: "mysql-igokochi-service"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: DB_NAME
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: JWT_SECRET
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 4000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 4000
+            initialDelaySeconds: 20
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 6
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: igokochi-backend-dev
+  labels:
+    app: igokochi-backend-dev
+spec:
+  type: ClusterIP
+  selector:
+    app: igokochi-backend-dev
+  ports:
+    - name: http
+      port: 4000
+      targetPort: 4000

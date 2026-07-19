@@ -1,0 +1,65 @@
+# Standalone dev frontend for menu_items_table / category testing.
+# Not part of the igokochi Helm chart (kept separate so it's easy to delete
+# later) — plain manifest, apply/delete directly with kubectl.
+#
+# VITE_API_BASE_URL is baked in at build time (Vite build-arg), not read at
+# runtime — the env var below is harmless but inert, kept only to mirror
+# production's template. What actually matters is building the image with:
+#   docker build --build-arg VITE_API_BASE_URL=https://dev.igokochihouse.com/api \
+#     -t ricoharsono/igokochi-frontend:dev ./igokochi
+#
+# Apply: kubectl apply -f shared/frontend-dev.yaml
+# Delete when done testing: kubectl delete -f shared/frontend-dev.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: igokochi-frontend-dev
+  labels:
+    app: igokochi-frontend-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: igokochi-frontend-dev
+  template:
+    metadata:
+      labels:
+        app: igokochi-frontend-dev
+    spec:
+      containers:
+        - name: frontend
+          image: ricoharsono/igokochi-frontend:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: VITE_API_BASE_URL
+              value: "https://dev.igokochihouse.com/api"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: igokochi-frontend-dev
+  labels:
+    app: igokochi-frontend-dev
+spec:
+  type: ClusterIP
+  selector:
+    app: igokochi-frontend-dev
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80

@@ -20,8 +20,26 @@ spec:
         - www.huatah.co
         - igokochihouse.com
         - www.igokochihouse.com
+        - dev.igokochihouse.com
       secretName: huatah-co-tls
   rules:
+    - host: dev.igokochihouse.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: igokochi-backend-dev
+                port:
+                  number: 4000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: igokochi-frontend-dev
+                port:
+                  number: 80
     - host: igokochihouse.com
       http:
         paths:
