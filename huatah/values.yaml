@@ -18,7 +18,7 @@ scrapers:
     leagueCode: "UF"
     type: "NFL"
   soccer:
-    leagueNames: "2026 WORLD CUP (IN CANADA, MEXICO & USA)|KOREA CUP"
+    leagueNames: "2026 ASEAN CHAMPIONSHIP|UEFA CHAMPIONS LEAGUE QUALIFIERS|UEFA CONFERENCE LEAGUE QUALIFIERS"
     leagueCode: "S"
     type: "Soccer"
 adminer:
