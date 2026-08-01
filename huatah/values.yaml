@@ -50,7 +50,7 @@ auth:
   replicas: 1
   image:
     repository: ricoharsono/huatah-auth
-    tag: latest
+    tag: 1835296f
   dbHost: "myservice.default.svc.cluster.local"
 redis:
   image:
