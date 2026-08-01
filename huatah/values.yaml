@@ -44,7 +44,7 @@ backend:
   replicas: 1
   image:
     repository: ricoharsono/huatah-backend
-    tag: 7e47af5e
+    tag: 49572cf4
   dbHost: "myservice.default.svc.cluster.local"
 auth:
   replicas: 1
