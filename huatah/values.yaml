@@ -39,7 +39,7 @@ frontend:
   replicas: 1
   image:
     repository: ricoharsono/huatah
-    tag: 1835296f
+    tag: 49572cf4
 backend:
   replicas: 1
   image:
