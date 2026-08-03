@@ -14,7 +14,7 @@ backend:
   replicas: 2
   image:
     repository: ricoharsono/igokochi-backend
-    tag: "91cf1fd8"
+    tag: "ad74454a"
   authBaseUrl: "http://igokochi-auth-service:8081"
   dbHost: "mysql-igokochi-service"
   dbPort: "3306"
