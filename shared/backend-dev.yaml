@@ -42,6 +42,15 @@ spec:
               value: "mysql-igokochi-service"
             - name: DB_PORT
               value: "3306"
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: REDIS_PASSWORD
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:

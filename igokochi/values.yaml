@@ -18,6 +18,8 @@ backend:
   authBaseUrl: "http://igokochi-auth-service:8081"
   dbHost: "mysql-igokochi-service"
   dbPort: "3306"
+  redisHost: "redis"
+  redisPort: "6379"
 frontend:
   replicas: 2
   image:

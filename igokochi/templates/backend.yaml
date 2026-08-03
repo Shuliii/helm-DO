@@ -30,6 +30,15 @@ spec:
               value: {{ .Values.backend.dbHost | quote }}
             - name: DB_PORT
               value: {{ .Values.backend.dbPort | quote }}
+            - name: REDIS_HOST
+              value: {{ .Values.backend.redisHost | quote }}
+            - name: REDIS_PORT
+              value: {{ .Values.backend.redisPort | quote }}
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: REDIS_PASSWORD
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
