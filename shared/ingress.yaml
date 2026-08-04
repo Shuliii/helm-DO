@@ -161,7 +161,7 @@ spec:
                 name: backend-service-np
                 port:
                   number: 3030
-          - path: /delete
+          - path: /ws
             pathType: Prefix
             backend:
               service:
@@ -270,7 +270,7 @@ spec:
                 name: backend-service-np
                 port:
                   number: 3030
-          - path: /delete
+          - path: /ws
             pathType: Prefix
             backend:
               service:
