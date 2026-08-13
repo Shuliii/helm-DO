@@ -59,6 +59,11 @@ spec:
                 secretKeyRef:
                   name: igokochi-secret
                   key: JWT_SECRET
+            - name: ANTHROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: igokochi-secret
+                  key: ANTHROPIC_API_KEY
           readinessProbe:
             httpGet:
               path: /api/health
