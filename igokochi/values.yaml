@@ -26,6 +26,7 @@ frontend:
     repository: ricoharsono/igokochi-frontend
     tag: "ec1f8138"
   apiBaseUrl: "https://igokochihouse.com/api"
+  slotCapacity: 1
 mysql:
   image:
     tag: "8.0"
