@@ -5,7 +5,7 @@ metadata:
   labels:
     app: redis-huatah
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: redis-huatah
