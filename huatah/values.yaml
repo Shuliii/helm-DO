@@ -6,18 +6,22 @@ scrapers:
   myUrl: "https://p12.6688867.com"
   interval: "5"
   mlb:
+    enabled: false
     leagueNames: "MLB|KBO LEAGUE|NIPPON PROFESSIONAL BASEBALL"
     leagueCode: "BE"
     type: "MLB"
   nba:
+    enabled: false
     leagueNames: "NBA SUMMER LEAGUE (IN LAS VEGAS)|WNBA"
     leagueCode: "BB"
     type: "NBA"
   nfl:
+    enabled: false
     leagueNames: "CFL"
     leagueCode: "UF"
     type: "NFL"
   soccer:
+    enabled: false
     leagueNames: "ENGLISH PREMIER LEAGUE|ITALY SERIE A|SPAIN PRIMERA LALIGA|GERMANY-BUNDESLIGA I"
     leagueCode: "S"
     type: "Soccer"

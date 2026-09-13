@@ -5,7 +5,7 @@ metadata:
 spec:
   schedule: "3,8,13,18,23,28,33,38,43,48,53,58 * * * *"
   concurrencyPolicy: Forbid
-  suspend: true
+  suspend: {{ not .Values.scrapers.nfl.enabled }}
   jobTemplate:
     spec:
       template:
