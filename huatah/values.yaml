@@ -6,7 +6,7 @@ scrapers:
   myUrl: "https://p12.6688867.com"
   interval: "5"
   mlb:
-    enabled: false
+    enabled: true
     leagueNames: "MLB|KBO LEAGUE|NIPPON PROFESSIONAL BASEBALL"
     leagueCode: "BE"
     type: "MLB"
@@ -16,7 +16,7 @@ scrapers:
     leagueCode: "BB"
     type: "NBA"
   nfl:
-    enabled: false
+    enabled: true
     leagueNames: "CFL"
     leagueCode: "UF"
     type: "NFL"
@@ -51,7 +51,7 @@ backend:
     tag: 49572cf4
   dbHost: "myservice.default.svc.cluster.local"
 auth:
-  replicas: 0
+  replicas: 1
   image:
     repository: ricoharsono/huatah-auth
     tag: 1835296f
