@@ -17,7 +17,7 @@ scrapers:
     type: "NBA"
   nfl:
     enabled: true
-    leagueNames: "CFL"
+    leagueNames: "NFL"
     leagueCode: "UF"
     type: "NFL"
   soccer:
