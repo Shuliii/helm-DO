@@ -6,13 +6,13 @@ scrapers:
   myUrl: "https://p12.6688867.com"
   interval: "5"
   mlb:
-    enabled: true
+    enabled: false
     leagueNames: "MLB|KBO LEAGUE|NIPPON PROFESSIONAL BASEBALL"
     leagueCode: "BE"
     type: "MLB PLAYOFFS"
   nba:
-    enabled: false
-    leagueNames: "NBA SUMMER LEAGUE (IN LAS VEGAS)|WNBA"
+    enabled: true
+    leagueNames: "NBA"
     leagueCode: "BB"
     type: "NBA"
   nfl:
