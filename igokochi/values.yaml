@@ -24,7 +24,7 @@ frontend:
   replicas: 2
   image:
     repository: ricoharsono/igokochi-frontend
-    tag: "a88e2155"
+    tag: "bbe0f722"
   apiBaseUrl: "https://igokochihouse.com/api"
   slotCapacity: 2
 mysql:
